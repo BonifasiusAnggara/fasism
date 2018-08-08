@@ -213,7 +213,7 @@
     var $ = jQuery.noConflict();
 	  $(function () {
       $('#table1').DataTable({
-        "order": [[ 0, "asc" ]],
+        "order": [[ 0, "desc" ]],
         "paging": true,
         "lengthChange": true,
         "searching": true,

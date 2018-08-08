@@ -60,6 +60,8 @@
     <script src="<?php echo base_url() ?>assets/plugins/datatables2/responsive.bootstrap.js" type="text/javascript"></script>
     <!-- Select2 -->
     <script src="<?=base_url('assets/plugins/select2/select2.full.min.js');?>"></script>
+    <!-- ChartJS 1.0.1 -->
+    <script src="<?=base_url('assets/plugins/chartjs/Chart.min.js');?>"></script>
   </head>
 
   <body class="hold-transition skin-blue sidebar-mini">

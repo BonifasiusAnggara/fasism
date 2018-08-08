@@ -29,14 +29,15 @@ class Register_model extends MY_Model {
 
 	function get_statistic(){
 		$this->db->select("Count({PRE}register.reg_id) AS total_retur,
-			  Date_Format({PRE}register.tgl_trm_gudang, '%d/%m') AS date",FALSE);
+			  Date_Format({PRE}register.tgl_trm_gudang, '%d') AS date",FALSE);
 		$this->db->where(
 				"YEAR({PRE}register.tgl_trm_gudang) = YEAR(NOW()) AND
-				 DATE({PRE}register.tgl_trm_gudang) >= NOW() - INTERVAL 15 DAY");
+				 MONTH({PRE}register.tgl_trm_gudang) = MONTH(NOW())");
 
 		$this->db->group_by('date');
 		$this->db->limit(15,0);				
-		$this->_order_type = 'ASC';
+		$this->_order_by_type = 'ASC';
 		return parent::get_by();
 	}
+
 }

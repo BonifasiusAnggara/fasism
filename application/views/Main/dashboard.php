@@ -31,7 +31,7 @@
               <div class="col-md-6">
                 <div class="box box-info">
                   <div class="box-header with-border">
-                    <h3 class="box-title">Counter</h3>
+                    <h3 class="box-title">Faktur Sisa yang belum selesai</h3>
 
                     <div class="box-tools pull-right">
                       <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
@@ -47,7 +47,7 @@
                         <div class="inner">
                           <h3 id="ReturChainstore" data-value="<?=$pct_rcs?>"><?=$ReturChainstore?></h3>
 
-                          <h4>Faktur Sisa Chainstore</h4>
+                          <h4>Faktur Sisa RTV</h4>
                         </div>
                         <div class="icon">
                           <i class="ion ion-umbrella"></i>
@@ -109,7 +109,7 @@
                 <!-- DONUT CHART -->
                 <div class="box box-danger">
                   <div class="box-header with-border">
-                    <h3 class="box-title">Donut Chart</h3>
+                    <h3 class="box-title">Prosentase Faktur Sisa</h3>
 
                     <div class="box-tools pull-right">
                       <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
@@ -144,7 +144,7 @@
             </div>
 
             <div class="box-body">
-              <div class="col-md-6">
+              <div class="col-md-12">
 
                 <div class="box box-info">
                   <div class="box-header with-border">
@@ -158,7 +158,7 @@
                   </div>
 
                   <div class="box-body">
-                    <div class="col-lg-6 col-xs-6">
+                    <div class="col-lg-3 col-xs-6">
                       <!-- small box -->
                       <div class="small-box bg-aqua">
                         <div class="inner">
@@ -174,7 +174,7 @@
                     </div>
                     <!-- ./col -->
 
-                    <div class="col-lg-6 col-xs-6">
+                    <div class="col-lg-3 col-xs-6">
                       <!-- small box -->
                       <div class="small-box bg-green">
                         <div class="inner">
@@ -190,7 +190,7 @@
                     </div>
                     <!-- ./col -->
 
-                    <div class="col-lg-6 col-xs-6">
+                    <div class="col-lg-3 col-xs-6">
                       <!-- small box -->
                       <div class="small-box bg-yellow">
                         <div class="inner">
@@ -205,7 +205,7 @@
                       </div>
                     </div>
                     <!-- ./col -->
-                    <div class="col-lg-6 col-xs-6">
+                    <div class="col-lg-3 col-xs-6">
                       <!-- small box -->
                       <div class="small-box bg-red">
                         <div class="inner">
@@ -223,11 +223,11 @@
                 </div>
               </div>
 
-              <div class="col-md-6">
+              <div class="col-md-12">
                 <!-- DONUT CHART -->
                 <div class="box box-danger">
                   <div class="box-header with-border">
-                    <h3 class="box-title">Line Chart</h3>
+                    <h3 class="box-title">Grafik Retur Bulan ini</h3>
 
                     <div class="box-tools pull-right">
                       <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
@@ -253,12 +253,9 @@
   <?php
     foreach ($statistik as $data){
       $date[] = $data->date;
-      $retur[] = $data->total_retur;
+      $retur[] = intval($data->total_retur);
     }
   ?>
-
-  <!-- ChartJS 1.0.1 -->
-  <script src="<?=base_url('assets/plugins/chartjs/Chart.min.js');?>"></script>
 
   <!-- page script -->
   <script>
@@ -272,15 +269,15 @@
         labels  : <?php echo json_encode($date) ?>,
         datasets: [
           {
-            label               : 'Electronics',
-            fillColor           : 'rgba(210, 214, 222, 1)',
-            strokeColor         : 'rgba(210, 214, 222, 1)',
-            pointColor          : 'rgba(210, 214, 222, 1)',
-            pointStrokeColor    : '#c1c7d1',
-            pointHighlightFill  : '#fff',
-            pointHighlightStroke: 'rgba(220,220,220,1)',
-            data                : <?php echo json_encode($retur) ?>
-          }
+          label: "Retur",
+          fillColor: "rgba(60,141,188,0.9)",
+          strokeColor: "rgba(60,141,188,0.8)",
+          pointColor: "#3b8bba",
+          pointStrokeColor: "rgba(60,141,188,1)",
+          pointHighlightFill: "#fff",
+          pointHighlightStroke: "rgba(60,141,188,1)",
+          data: <?php echo json_encode($retur) ?>
+        }
         ]
       }
 
@@ -322,6 +319,16 @@
         //Boolean - whether to make the chart responsive to window resizing
         responsive              : true
       }
+
+
+      //-------------
+      //- LINE CHART -
+      //--------------
+      var lineChartCanvas          = $('#lineChart').get(0).getContext('2d')
+      var lineChart                = new Chart(lineChartCanvas)
+      var lineChartOptions         = areaChartOptions
+      lineChartOptions.datasetFill = false
+      lineChart.Line(areaChartData, lineChartOptions)
 
       //-------------
       //- PIE CHART -
@@ -376,16 +383,6 @@
       //Create pie or douhnut chart
       // You can switch between pie and douhnut using the method below.
       pieChart.Doughnut(PieData, pieOptions);
-
-
-      //-------------
-      //- LINE CHART -
-      //--------------
-      var lineChartCanvas          = $('#lineChart').get(0).getContext('2d')
-      var lineChart                = new Chart(lineChartCanvas)
-      var lineChartOptions         = areaChartOptions
-      lineChartOptions.datasetFill = false
-      lineChart.Line(areaChartData, lineChartOptions)
 
     });
   </script>
